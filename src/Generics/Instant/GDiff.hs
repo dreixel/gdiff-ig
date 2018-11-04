@@ -11,7 +11,7 @@ module Generics.Instant.GDiff
   , SEq(..), shallowEqDef
   , Build(..), buildDef
   , Children(..), childrenDef
-  , Ex(..)
+  , Ex(..), EditScript
   ) where
 
 import Control.Arrow
