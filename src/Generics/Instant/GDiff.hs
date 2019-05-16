@@ -2,6 +2,7 @@
 {-# LANGUAGE TypeOperators        #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE FlexibleContexts     #-}
+{-# LANGUAGE FlexibleInstances    #-}
 {-# LANGUAGE ScopedTypeVariables  #-}
 {-# LANGUAGE MagicHash            #-}
 
@@ -10,7 +11,7 @@ module Generics.Instant.GDiff
   , SEq(..), shallowEqDef
   , Build(..), buildDef
   , Children(..), childrenDef
-  , Ex(..)
+  , Ex(..), EditScript
   ) where
 
 import Control.Arrow
@@ -18,6 +19,7 @@ import Data.Array
 
 import Data.Typeable
 import GHC.Prim
+import GHC.Exts (isTrue#)
 
 
 -- GP lib
@@ -176,7 +178,7 @@ editScriptLen (ES _ l) = editScriptLen' l where
 
 infixr 4 &
 (&) :: EditScript -> EditScript -> EditScript
-l@(ES m _) & r@(ES n _) = if m <=# n then l else r
+l@(ES m _) & r@(ES n _) = if isTrue# (m <=# n) then l else r
 
 
 -- | Generic patch
